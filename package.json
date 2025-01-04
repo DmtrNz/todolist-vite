@@ -2,11 +2,14 @@
   "name": "todolist-05",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://DmtrNz.github.io/todolist-vite/",
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
     "build": "tsc -b && vite build",
     "test": "vitest",
+    "predeploy": "pnpm run build",
+    "deploy": "gh-pages -d dist",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -18,6 +21,7 @@
     "@types/react": "19.0.2",
     "@types/react-dom": "19.0.2",
     "@vitejs/plugin-react-swc": "3.7.2",
+    "gh-pages": "^6.3.0",
     "globals": "15.14.0",
     "typescript": "5.7.2",
     "vite": "6.0.6",
