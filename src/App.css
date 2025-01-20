@@ -1,0 +1,13 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+
