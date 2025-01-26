@@ -2,30 +2,6 @@ import { v1 } from "uuid";
 import { Task, TasksState } from "../App";
 import { CreateTodolistAT, DeleteTodolistAT } from "./todolists-reducer";
 
-// export type CreateTodolistAT = {
-//     type: "CREATE-TODOLIST",
-//     payload: {
-//         title: string,
-//         id: string
-//     }
-// }
-
-// export type ChangeTodolistTitleAT = {
-//     type: "CHANGE-TODOLIST-TITLE",
-//     payload: {
-//         id: string,
-//         title: string
-//     }
-// }
-
-// export type ChangeFilterAT = {
-//     type: "CHANGE-TODOLIST-FILTER",
-//     payload: {
-//         id: string,
-//         filter: FilterValues
-//     }
-// }
-
 type CreateTaskAT = ReturnType<typeof CreateTaskAC>//определяет тип данных, которая возвращает функция CreateTaskAC
 type DeleteTaskAT = ReturnType<typeof DeleteTaskAC>
 type ChangeTaskStatusAT = ReturnType<typeof ChangeTaskStatusAC>
