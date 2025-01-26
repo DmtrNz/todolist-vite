@@ -1,8 +1,9 @@
+import { v1 } from "uuid";
 import { FilterValues, Todolist } from "../App";
 
 export type DeleteTodolistAT = {
-    type: "DELETE-TODOLIST",
-    payload: {
+    type: "DELETE-TODOLIST",//тип действия
+    payload: {//набор данных 
         id: string,
     }
 }
@@ -65,15 +66,15 @@ export const DeleteTodolistAC = (id: string):DeleteTodolistAT => {
     })
 }
 
-export const CreateTodolistAC = (id: string, title: string):CreateTodolistAT => {
+export const CreateTodolistAC = (title: string):CreateTodolistAT => {
     return ({
         type: "CREATE-TODOLIST",
         payload: {
-            id,
+            id: v1(),
             title
         }
     })
-}
+} 
 
 export const ChangeTodolistTitleAC = (id: string, title: string): ChangeTodolistTitleAT =>{
     return({
