@@ -1,5 +1,5 @@
 import type { ChangeEvent } from 'react'
-import type { FilterValues, Task, Todolist } from './App'
+import type { FilterValues, Task, Todolist } from './app/App'
 import { CreateItemForm } from './CreateItemForm'
 import { EditableSpan } from './EditableSpan'
 import { Box, Button, Checkbox, IconButton, List, ListItem, ListItemIcon, Typography } from '@mui/material'

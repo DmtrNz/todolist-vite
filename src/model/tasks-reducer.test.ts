@@ -1,7 +1,7 @@
 import { beforeEach, expect, test } from "vitest"
-import { TasksState } from "../App"
-import { ChangeTaskStatusAC, ChangeTaskTitleAC, CreateTaskAC, DeleteTaskAC, tasksReducer } from "./tasks-reducer"
-import { CreateTodolistAC, DeleteTodolistAC } from "./todolists-reducer"
+import { TasksState } from "../app/App"
+import { changeTaskStatusAC, changeTaskTitleAC, createTaskAC, deleteTaskAC, tasksReducer } from "./tasks-reducer"
+import { createTodolistAC, deleteTodolistAC } from "./todolists-reducer"
 
 // 1. Стартовый state
 let startState: TasksState = {}
@@ -22,7 +22,7 @@ beforeEach(() => {
 
 test('correct task should be added to correct array', () => {
     // 2. Действие
-    const endState = tasksReducer(startState, CreateTaskAC({ title: "juce", todolistId: "todolistId2" }))
+    const endState = tasksReducer(startState, createTaskAC({ title: "juce", todolistId: "todolistId2" }))
 
     // 3. Проверка, что действие измененило state соответствующим образом
     expect(endState['todolistId1'].length).toBe(3)
@@ -34,7 +34,7 @@ test('correct task should be added to correct array', () => {
 
 test('correct task should be deleted from correct array', () => {
     //2. Действие
-    const endState = tasksReducer(startState, DeleteTaskAC({id: "2", todolistId: "todolistId2"}))
+    const endState = tasksReducer(startState, deleteTaskAC({id: "2", todolistId: "todolistId2"}))
 
     // 3. Проверка, что действие измененило state соответствующим образом
     expect(endState).toEqual({
@@ -52,7 +52,7 @@ test('correct task should be deleted from correct array', () => {
 
 test('correct task should be shange correct status', () => {
     //2. Действие
-    const endState = tasksReducer(startState, ChangeTaskStatusAC({id: "1", todolistId: "todolistId1", isDone: true}))
+    const endState = tasksReducer(startState, changeTaskStatusAC({id: "1", todolistId: "todolistId1", isDone: true}))
 
     // 3. Проверка, что действие измененило state соответствующим образом
     expect(endState['todolistId2'][0].isDone).toBe(false)
@@ -61,7 +61,7 @@ test('correct task should be shange correct status', () => {
 
 test('correct task should be shange correct title', () => {
     //2. Действие
-    const endState = tasksReducer(startState, ChangeTaskTitleAC({todolistId: "todolistId1", id: "2", title: "TS"}))
+    const endState = tasksReducer(startState, changeTaskTitleAC({todolistId: "todolistId1", id: "2", title: "TS"}))
 
     // 3. Проверка, что действие измененило state соответствующим образом
     expect(endState['todolistId1'][1].title).toBe("TS")
@@ -69,7 +69,7 @@ test('correct task should be shange correct title', () => {
 
 test('array with empty tasks should be added with new todolist', () => {
     //2. Действие
-    const endState = tasksReducer(startState, CreateTodolistAC("new todolist"))
+    const endState = tasksReducer(startState, createTodolistAC("new todolist"))
 
     const keys = Object.keys(endState)
     const newKey = keys.find(k => k !== "todolistId1" && k !== "todolistId2")
@@ -84,7 +84,7 @@ test('array with empty tasks should be added with new todolist', () => {
 
 test('property with todolist should be deleted', () => {
     //2. Действие
-    const action = DeleteTodolistAC("todolistId2")
+    const action = deleteTodolistAC({todolistId: "todolistId2"})
     const endState = tasksReducer(startState, action)
     const keys = Object.keys(endState)
 
