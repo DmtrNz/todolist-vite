@@ -1,6 +1,5 @@
 import { beforeEach, expect, test } from "vitest"
-import { TasksState } from "../app/App"
-import { changeTaskStatusAC, changeTaskTitleAC, createTaskAC, deleteTaskAC, tasksReducer } from "./tasks-reducer"
+import { changeTaskStatusAC, changeTaskTitleAC, createTaskAC, deleteTaskAC, tasksReducer, TasksState } from "./tasks-reducer"
 import { createTodolistAC, deleteTodolistAC } from "./todolists-reducer"
 
 // 1. Стартовый state

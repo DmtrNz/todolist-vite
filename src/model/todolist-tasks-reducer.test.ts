@@ -1,7 +1,6 @@
 import { expect, test } from "vitest"
-import { TasksState, Todolist } from "../app/App"
-import { tasksReducer } from "./tasks-reducer"
-import { todolistsReducer, createTodolistAC } from "./todolists-reducer"
+import { tasksReducer, TasksState } from "./tasks-reducer"
+import { todolistsReducer, createTodolistAC, Todolist } from "./todolists-reducer"
 
 test('ids should be equals', () => {
 

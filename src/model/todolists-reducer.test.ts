@@ -1,6 +1,5 @@
 import { beforeEach, expect, test } from 'vitest'
-import type { Todolist } from '../app/App'
-import { changeFilterAC, changeTodolistTitleAC, createTodolistAC, deleteTodolistAC, todolistsReducer } from './todolists-reducer'
+import { changeFilterAC, changeTodolistTitleAC, createTodolistAC, deleteTodolistAC, Todolist, todolistsReducer } from './todolists-reducer'
 import { nanoid } from '@reduxjs/toolkit'
 
 // 1. Стартовый state
