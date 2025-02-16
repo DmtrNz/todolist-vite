@@ -1,8 +1,9 @@
 import { IconButton, Typography } from "@mui/material"
-import { EditableSpan } from "./EditableSpan"
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-import { changeTodolistTitleAC, deleteTodolistAC, Todolist } from "./model/todolists-reducer"
-import { useAppDispatch } from "./common/hooks/useAppDispatch"
+import { changeTodolistTitleAC, deleteTodolistAC, Todolist } from "@/features/todolist/model/todolists-reducer"
+import { useAppDispatch } from "@/common/hooks/useAppDispatch"
+import { EditableSpan } from "@/common/components/EditableSpan/EditableSpan"
+
 
 type Props = {
     todolist: Todolist

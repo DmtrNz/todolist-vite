@@ -1,8 +1,8 @@
-import { Container, Grid2 } from "@mui/material"
-import { CreateItemForm } from "../CreateItemForm"
-import { createTodolistAC } from "@/model/todolists-reducer"
+import { CreateItemForm } from "@/common/components/CreateItemForm/CreateItemForm"
 import { useAppDispatch } from "@/common/hooks/useAppDispatch"
-import { Todolists } from "@/Todolists"
+import { createTodolistAC } from "@/features/todolist/model/todolists-reducer"
+import { Todolists } from "@/features/todolist/ui/Todolists/Todolists"
+import { Container, Grid2 } from "@mui/material"
 
 export const Main = () => {
 

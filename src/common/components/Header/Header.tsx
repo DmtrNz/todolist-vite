@@ -3,14 +3,13 @@ import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import { Container, Switch } from '@mui/material'
-import { NavButton } from './NavButton' 
-import { containerSx } from './TodolistItesm.styles'
-import { changeThemeModeAC } from './app/app-reducer'
-import { useAppDispatch } from './common/hooks/useAppDispatch'
-import { getTheme } from './common/hooks/theme/theme'
-import { useAppSelector } from './common/hooks/useAppSelector'
-import { selectThemeMode } from './app/app-selector'
-
+import { useAppSelector } from '@/common/hooks/useAppSelector'
+import { selectThemeMode } from '@/app/app-selector'
+import { useAppDispatch } from '@/common/hooks/useAppDispatch'
+import { changeThemeModeAC } from '@/app/app-reducer'
+import { getTheme } from '@/common/theme/theme'
+import { containerSx } from '@/common/styles/container.styles'
+import { NavButton } from '../NavButton/NavButton'
 
 
 export const Header = () => {

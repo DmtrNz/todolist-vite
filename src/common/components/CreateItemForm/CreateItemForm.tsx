@@ -41,12 +41,12 @@ export const CreateItemForm = ({ onCreateItem }: Props) => {
         value={title}
         onChange={changeTitleHandler}
         onKeyDown={createItemOnEnterHandler} />
-      <Button 
+      <Button
         disableElevation
-        variant="contained" 
-        onClick={createItemHandler} 
-        endIcon={<AddCircleOutlineIcon/>}>
-      add
+        variant="contained"
+        onClick={createItemHandler}
+        endIcon={<AddCircleOutlineIcon />}>
+        add
       </Button>
     </div>
   )

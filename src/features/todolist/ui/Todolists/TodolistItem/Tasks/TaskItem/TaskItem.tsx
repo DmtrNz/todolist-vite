@@ -1,11 +1,11 @@
 import { Box, Checkbox, IconButton, ListItem, ListItemIcon } from "@mui/material"
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-import { EditableSpan } from "./EditableSpan"
-import { changeTaskStatusAC, changeTaskTitleAC, deleteTaskAC, Task } from "./model/tasks-reducer"
-import { useAppDispatch } from "./common/hooks/useAppDispatch"
 import { ChangeEvent } from "react"
-import { Todolist } from "./model/todolists-reducer"
-import { getListItemSx } from "./TodolistItesm.styles"
+import { getListItemSx } from "./TaskItem.styles.ts/TaskItem.styles"
+import { Todolist } from "@/features/todolist/model/todolists-reducer"
+import { changeTaskStatusAC, changeTaskTitleAC, deleteTaskAC, Task } from "@/features/todolist/model/tasks-reducer"
+import { useAppDispatch } from "@/common/hooks/useAppDispatch"
+import { EditableSpan } from "@/common/components/EditableSpan/EditableSpan"
 
 type Props = {
     todolist: Todolist
