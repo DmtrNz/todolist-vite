@@ -57,7 +57,7 @@ export const AppHttpRequests = () => {
                             <EditableSpan value={task.title}
                                 onChange={title => changeTaskTitle(task, title)} />
                             <button onClick={() => deleteTask(todolist.id, task.id)}>x</button>
-                        </div>
+                </div>
                     ))}
                 </div>
             ))}
@@ -74,6 +74,3 @@ const container: CSSProperties = {
     justifyContent: 'space-between',
     flexDirection: 'column',
 }
-
-
-
