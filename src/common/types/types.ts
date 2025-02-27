@@ -1,4 +1,4 @@
-export type FieldError = { 
+export type FieldError = {
     error: string
     field: string
 }
