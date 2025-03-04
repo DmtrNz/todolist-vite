@@ -1,4 +1,4 @@
-import { TaskPriority, TaskStatus } from "@/common/enums/enums"
+import { TaskPriority, TaskStatus } from '@/common/enums/enums'
 
 export type Task = {
     description: string | null

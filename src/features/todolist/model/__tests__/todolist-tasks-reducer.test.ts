@@ -1,18 +1,18 @@
-import { expect, test } from "vitest"
-import { tasksReducer, TasksState } from "../tasks-reducer"
+import { expect, test } from 'vitest'
+import { tasksReducer, TasksState } from '../tasks-slice'
 import {
     todolistsReducer,
     createTodolistAC,
-    Todolist,
-} from "../todolists-reducer"
+    //Todolist,
+} from '../todolists-slice'
 
-test("ids should be equals", () => {
+test('ids should be equals', () => {
     // 1. Стартовый state
     const startTasksState: TasksState = {}
     const startTodolistsState: Todolist[] = []
 
     //2. Действие
-    const action = createTodolistAC("new todolist")
+    const action = createTodolistAC('new todolist')
     const endTaskState = tasksReducer(startTasksState, action)
     const endTodolistsState = todolistsReducer(startTodolistsState, action)
 

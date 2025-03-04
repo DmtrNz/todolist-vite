@@ -4,19 +4,19 @@ import {
     IconButton,
     ListItem,
     ListItemIcon,
-} from "@mui/material"
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
-import { ChangeEvent } from "react"
-import { getListItemSx } from "./TaskItem.styles.ts/TaskItem.styles"
-import { Todolist } from "@/features/todolist/model/todolists-reducer"
+} from '@mui/material'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import { ChangeEvent } from 'react'
+import { getListItemSx } from './TaskItem.styles.ts/TaskItem.styles'
+import { Todolist } from '@/features/todolist/model/todolists-slice'
 import {
     changeTaskStatusAC,
     changeTaskTitleAC,
     deleteTaskAC,
     Task,
-} from "@/features/todolist/model/tasks-reducer"
-import { EditableSpan } from "@/common/components/EditableSpan/EditableSpan"
-import { useAppDispatch } from "@/common/hooks"
+} from '@/features/todolist/model/tasks-slice'
+import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
+import { useAppDispatch } from '@/common/hooks'
 
 type Props = {
     todolist: Todolist
@@ -49,11 +49,11 @@ export const TaskItem = ({ todolist, task }: Props) => {
 
     return (
         <ListItem
-            className={task.isDone ? "is-done" : ""}
+            className={task.isDone ? 'is-done' : ''}
             disablePadding
             divider
             secondaryAction={
-                <IconButton onClick={deleteTask} color={"primary"}>
+                <IconButton onClick={deleteTask} color={'primary'}>
                     <DeleteForeverIcon />
                 </IconButton>
             }

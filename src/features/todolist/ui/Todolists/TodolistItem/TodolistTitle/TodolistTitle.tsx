@@ -1,15 +1,15 @@
-import { IconButton, Typography } from "@mui/material"
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
+import { IconButton, Typography } from '@mui/material'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import {
-    changeTodolistTitleAC,
+    changeTodolistTitle,
     deleteTodolistAC,
-    Todolist,
-} from "@/features/todolist/model/todolists-reducer"
-import { EditableSpan } from "@/common/components/EditableSpan/EditableSpan"
-import { useAppDispatch } from "@/common/hooks"
+    DomainTodolist,
+} from '@/features/todolist/model/todolists-slice'
+import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
+import { useAppDispatch } from '@/common/hooks'
 
 type Props = {
-    todolist: Todolist
+    todolist: DomainTodolist
 }
 
 export const TodolistTitle = (props: Props) => {
@@ -22,19 +22,19 @@ export const TodolistTitle = (props: Props) => {
         dispatch(deleteTodolistAC({ todolistId: id }))
     }
 
-    const changeTodolistTitle = (title: string) => {
-        dispatch(changeTodolistTitleAC({ todolistId: id, title }))
+    const changeTodolistTitleHandler = (title: string) => {
+        dispatch(changeTodolistTitle({ todolistId: id, title }))
     }
 
     return (
-        <div className={"container"}>
-            <Typography variant='h5' align={"center"} sx={{ fontWeight: 700 }}>
-                <EditableSpan value={title} onChange={changeTodolistTitle} />
+        <div className={'container'}>
+            <Typography variant='h5' align={'center'} sx={{ fontWeight: 700 }}>
+                <EditableSpan value={title} onChange={changeTodolistTitleHandler} />
             </Typography>
             <IconButton
                 aria-label='delete'
                 onClick={deleteTodolist}
-                color={"primary"}
+                color={'primary'}
             >
                 <DeleteForeverIcon />
             </IconButton>

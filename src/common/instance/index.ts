@@ -1,1 +1,1 @@
-export { instance } from "./instance"
+export { instance } from './instance'

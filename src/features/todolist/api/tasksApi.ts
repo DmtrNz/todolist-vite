@@ -1,6 +1,6 @@
-import { instance } from "@/common/instance"
-import { GetTasksResponce, Task, UpdateTaskModel } from "./tasksApi.types"
-import { BaseResponce } from "@/common/types"
+import { instance } from '@/common/instance'
+import { GetTasksResponce, Task, UpdateTaskModel } from './tasksApi.types'
+import { BaseResponce } from '@/common/types'
 
 export const tasksApi = {
     getTasks(todolistId: string) {
@@ -22,5 +22,5 @@ export const tasksApi = {
             `/todo-lists/${todolistId}/tasks/${taskId}`,
             model,
         )
-    }
+    },
 }

@@ -1,22 +1,22 @@
-import { Button, TextField } from "@mui/material"
-import { type ChangeEvent, type KeyboardEvent, useState } from "react"
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
+import { Button, TextField } from '@mui/material'
+import { type ChangeEvent, type KeyboardEvent, useState } from 'react'
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 
 type Props = {
     onCreateItem: (title: string) => void
 }
 
 export const CreateItemForm = ({ onCreateItem }: Props) => {
-    const [title, setTitle] = useState("")
+    const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
 
     const createItemHandler = () => {
         const trimmedTitle = title.trim()
-        if (trimmedTitle !== "") {
+        if (trimmedTitle !== '') {
             onCreateItem(trimmedTitle)
-            setTitle("")
+            setTitle('')
         } else {
-            setError("Title is required")
+            setError('Title is required')
         }
     }
 
@@ -28,7 +28,7 @@ export const CreateItemForm = ({ onCreateItem }: Props) => {
     const createItemOnEnterHandler = (
         event: KeyboardEvent<HTMLInputElement>,
     ) => {
-        if (event.key === "Enter") {
+        if (event.key === 'Enter') {
             createItemHandler()
         }
     }
@@ -36,7 +36,7 @@ export const CreateItemForm = ({ onCreateItem }: Props) => {
     return (
         <div>
             <TextField
-                className={error ? "error" : ""}
+                className={error ? 'error' : ''}
                 error={!!error}
                 helperText={error}
                 size='small'

@@ -1,14 +1,14 @@
-import { useAppDispatch } from "@/common/hooks"
-import { containerSx } from "@/common/styles"
+import { useAppDispatch } from '@/common/hooks'
+import { containerSx } from '@/common/styles'
 import {
     changeFilterAC,
+    DomainTodolist,
     FilterValues,
-    Todolist,
-} from "@/features/todolist/model/todolists-reducer"
-import { Box, Button } from "@mui/material"
+} from '@/features/todolist/model/todolists-slice'
+import { Box, Button } from '@mui/material'
 
 type Props = {
-    todolist: Todolist
+    todolist: DomainTodolist
 }
 
 export const FilterButtons = (props: Props) => {
@@ -24,23 +24,23 @@ export const FilterButtons = (props: Props) => {
     return (
         <Box sx={containerSx}>
             <Button
-                color={filter === "all" ? "secondary" : "primary"}
+                color={filter === 'all' ? 'secondary' : 'primary'}
                 variant='contained'
-                onClick={() => changeFilter("all")}
+                onClick={() => changeFilter('all')}
             >
                 All
             </Button>
             <Button
-                color={filter === "active" ? "secondary" : "primary"}
+                color={filter === 'active' ? 'secondary' : 'primary'}
                 variant='contained'
-                onClick={() => changeFilter("active")}
+                onClick={() => changeFilter('active')}
             >
                 Active
             </Button>
             <Button
-                color={filter === "completed" ? "secondary" : "primary"}
+                color={filter === 'completed' ? 'secondary' : 'primary'}
                 variant='contained'
-                onClick={() => changeFilter("completed")}
+                onClick={() => changeFilter('completed')}
             >
                 Completed
             </Button>
