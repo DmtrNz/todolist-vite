@@ -2,14 +2,11 @@ import { nanoid } from '@reduxjs/toolkit'
 import { createTodolist, deleteTodolist } from './todolists-slice'
 import { createAppSlice } from '@/common/utils'
 import { tasksApi } from '../api/tasksApi'
+import { DomainTask } from '../api/tasksApi.types'
+import { TaskPriority, TaskStatus } from '@/common/enums/enums'
 
-export type TasksState = Record<string, Task[]>
+export type TasksState = Record<string, DomainTask[]>
 
-export type Task = {
-    id: string
-    title: string
-    isDone: boolean
-}
 
 export const tasksSlice = createAppSlice({
     name: "tasks",
@@ -26,10 +23,18 @@ export const tasksSlice = createAppSlice({
             }),
             createTaskAC: create.reducer<{title: string; todolistId: string}>((state, action)=>{
                 const { title, todolistId } = action.payload
-                const newTask: Task = {
-                    id: nanoid(),
+                const newTask: DomainTask = {
                     title,
-                    isDone: false,
+                    todoListId: action.payload.todolistId,
+                    priority: TaskPriority.Low,
+                    status: TaskStatus.New,
+                    id: nanoid(),
+                    deadline: '',
+                    order: 1,
+                    startDate: "",
+                    description: "",
+                    addedDate: "",
+                    completed: false
                 }
                 state[todolistId].unshift(newTask)
             }),
@@ -37,7 +42,7 @@ export const tasksSlice = createAppSlice({
                 const { id, todolistId, isDone } = action.payload
                 const task = state[todolistId].find((t) => t.id === id)
                 if (task) {
-                    task.isDone = isDone
+                    task.status = isDone ? TaskStatus.Completed : TaskStatus.New
                 }
             }),
             changeTaskTitleAC: create.reducer<{todolistId: string, id: string, title: string}>((state, action)=>{
@@ -48,9 +53,13 @@ export const tasksSlice = createAppSlice({
                 }
             }),
             // thunk
-            setTasks: create.asyncThunk(async (todolistId: string, {dispatch, rejectWithValue})=>{
-                const res = await tasksApi.getTasks(todolistId)
-                return { tasks: res.data.items, todolistId }
+            setTasks: create.asyncThunk(async (todolistId: string, { rejectWithValue })=>{
+                try{
+                    const res = await tasksApi.getTasks(todolistId)
+                    return { tasks: res.data.items, todolistId }
+                } catch(error) {
+                    return rejectWithValue(null)
+                }
             },{
                 fulfilled: (state, action)=>{
                     state[action.payload.todolistId] = action.payload.tasks

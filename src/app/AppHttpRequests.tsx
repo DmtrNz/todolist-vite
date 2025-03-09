@@ -9,12 +9,12 @@ import Checkbox from '@mui/material/Checkbox'
 import { Todolist } from '@/features/todolist/api/todolistApi.types'
 import { todolistApi } from '@/features/todolist/api/todolistApi'
 import { tasksApi } from '@/features/todolist/api/tasksApi'
-import { Task } from '@/features/todolist/api/tasksApi.types'
+import { DomainTask } from '@/features/todolist/api/tasksApi.types'
 import { TaskStatus } from '@/common/enums/enums'
 
 export const AppHttpRequests = () => {
     const [todolists, setTodolists] = useState<Todolist[]>([])
-    const [tasks, setTasks] = useState<Record<string, Task[]>>({})
+    const [tasks, setTasks] = useState<Record<string, DomainTask[]>>({})
 
     useEffect(() => {
         todolistApi.getTodolists().then((res) => {
@@ -79,7 +79,7 @@ export const AppHttpRequests = () => {
         })
     }
 
-    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>, task: Task) => {
+    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>, task: DomainTask) => {
         const todoListId = task.todoListId
         const model = {
             title: task.title,
