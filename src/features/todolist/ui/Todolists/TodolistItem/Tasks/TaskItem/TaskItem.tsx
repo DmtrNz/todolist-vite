@@ -8,7 +8,7 @@ import {
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import { ChangeEvent } from 'react'
 import { getListItemSx } from './TaskItem.styles.ts/TaskItem.styles'
-import { Todolist } from '@/features/todolist/model/todolists-slice'
+import { DomainTodolist } from '@/features/todolist/model/todolists-slice'
 import {
     changeTaskStatusAC,
     changeTaskTitleAC,
@@ -19,7 +19,7 @@ import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
 import { useAppDispatch } from '@/common/hooks'
 
 type Props = {
-    todolist: Todolist
+    todolist: DomainTodolist
     task: Task
 }
 

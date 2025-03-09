@@ -2,7 +2,7 @@ import { IconButton, Typography } from '@mui/material'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import {
     changeTodolistTitle,
-    deleteTodolistAC,
+    deleteTodolist,
     DomainTodolist,
 } from '@/features/todolist/model/todolists-slice'
 import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
@@ -18,8 +18,8 @@ export const TodolistTitle = (props: Props) => {
     const dispatch = useAppDispatch()
 
     //todolists
-    const deleteTodolist = () => {
-        dispatch(deleteTodolistAC({ todolistId: id }))
+    const deleteTodolistHandler = () => {
+        dispatch(deleteTodolist({ todolistId: id }))
     }
 
     const changeTodolistTitleHandler = (title: string) => {
@@ -33,7 +33,7 @@ export const TodolistTitle = (props: Props) => {
             </Typography>
             <IconButton
                 aria-label='delete'
-                onClick={deleteTodolist}
+                onClick={deleteTodolistHandler}
                 color={'primary'}
             >
                 <DeleteForeverIcon />
