@@ -1,5 +1,7 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit'
+import { nanoid } from '@reduxjs/toolkit'
 import { createTodolist, deleteTodolist } from './todolists-slice'
+import { createAppSlice } from '@/common/utils'
+import { tasksApi } from '../api/tasksApi'
 
 export type TasksState = Record<string, Task[]>
 
@@ -9,11 +11,12 @@ export type Task = {
     isDone: boolean
 }
 
-export const tasksSlice = createSlice({
+export const tasksSlice = createAppSlice({
     name: "tasks",
     initialState: {} as TasksState,
     reducers: (create) => {
         return {
+            //actions
             deleteTaskAC: create.reducer<{id: string, todolistId: string}>((state, action)=>{
                 const { todolistId, id } = action.payload
                 const index = state[todolistId].findIndex((t) => t.id === id)
@@ -43,6 +46,15 @@ export const tasksSlice = createSlice({
                 if (task) {
                     task.title = title
                 }
+            }),
+            // thunk
+            setTasks: create.asyncThunk(async (todolistId: string, {dispatch, rejectWithValue})=>{
+                const res = await tasksApi.getTasks(todolistId)
+                return { tasks: res.data.items, todolistId }
+            },{
+                fulfilled: (state, action)=>{
+                    state[action.payload.todolistId] = action.payload.tasks
+                }
             })
         }
     },
@@ -64,5 +76,5 @@ export const tasksSlice = createSlice({
 })
 
 export const tasksReducer = tasksSlice.reducer
-export const { deleteTaskAC, createTaskAC, changeTaskStatusAC, changeTaskTitleAC } = tasksSlice.actions
+export const { deleteTaskAC, createTaskAC, changeTaskStatusAC, changeTaskTitleAC, setTasks } = tasksSlice.actions
 export const { selectTasks } = tasksSlice.selectors

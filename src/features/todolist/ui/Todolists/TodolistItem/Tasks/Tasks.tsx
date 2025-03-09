@@ -1,8 +1,9 @@
 import { List } from '@mui/material'
 import { TaskItem } from './TaskItem/TaskItem'
-import { useAppSelector } from '@/common/hooks'
-import { selectTasks } from '@/features/todolist/model/tasks-slice'
+import { useAppDispatch, useAppSelector } from '@/common/hooks'
+import { selectTasks, setTasks } from '@/features/todolist/model/tasks-slice'
 import { DomainTodolist } from '@/features/todolist/model/todolists-slice'
+import { useEffect } from 'react'
 
 type Props = {
     todolist: DomainTodolist
@@ -12,6 +13,12 @@ export const Tasks = (props: Props) => {
     const { id, filter } = props.todolist
 
     const tasks = useAppSelector(selectTasks)
+
+    const dispatch = useAppDispatch()
+
+    useEffect(()=>{
+        dispatch(setTasks(id))
+    })
 
     const todolistTasks = tasks[id]
     let filteredTasks = todolistTasks
