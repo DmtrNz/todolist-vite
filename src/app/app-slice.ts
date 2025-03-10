@@ -1,23 +1,11 @@
+import { RequestStatus } from '@/common/types'
 import { createSlice } from '@reduxjs/toolkit'
-
-// const initialState = {
-//     themeMode: "light" as ThemeMode, //понимай это как 'dark' или 'light'
-// }
-
-// export const changeThemeModeAC = createAction<{ themeMode: ThemeMode }>(
-//     "app/changeThemeMode",
-// )
-
-// export const appReducer = createReducer(initialState, (builder) => {
-//     builder.addCase(changeThemeModeAC, (state, action) => {
-//         state.themeMode = action.payload.themeMode
-//     })
-// })
 
 export const appSlice = createSlice({
     name: 'app',
     initialState: {
         themeMode: 'light' as ThemeMode,
+        status: 'loading' as RequestStatus
     },
     reducers: (create) => ({
         changeThemeModeAC: create.reducer<{ themeMode: ThemeMode }>(
@@ -25,14 +13,20 @@ export const appSlice = createSlice({
                 state.themeMode = action.payload.themeMode
             },
         ),
+        setStatus: create.reducer<{ status: RequestStatus }>(
+            (state, action) => {
+                state.status = action.payload.status
+            },
+        ),
     }),
     selectors: {
-        selectThemeMode: (state) => state.themeMode
+        selectThemeMode: (state) => state.themeMode,
+        selectStatus: (state) => state.status
     }
 })
 
 export const appReducer = appSlice.reducer
-export const { changeThemeModeAC } = appSlice.actions
-export const { selectThemeMode } = appSlice.selectors
+export const { changeThemeModeAC, setStatus } = appSlice.actions
+export const { selectThemeMode, selectStatus } = appSlice.selectors
 
 export type ThemeMode = 'dark' | 'light'

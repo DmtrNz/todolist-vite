@@ -10,9 +10,9 @@ import { ChangeEvent } from 'react'
 import { getListItemSx } from './TaskItem.styles.ts/TaskItem.styles'
 import { DomainTodolist } from '@/features/todolist/model/todolists-slice'
 import {
-    changeTaskStatusAC,
+    changeTaskStatus,
     changeTaskTitleAC,
-    deleteTaskAC,
+    deleteTask,
 } from '@/features/todolist/model/tasks-slice'
 import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
 import { useAppDispatch } from '@/common/hooks'
@@ -27,21 +27,15 @@ type Props = {
 export const TaskItem = ({ todolist, task }: Props) => {
     const { id } = todolist
 
-    const isTaskCompleted = task.status === TaskStatus.Completed
-
     const dispatch = useAppDispatch()
-    const deleteTask = () => {
-        dispatch(deleteTaskAC({ id: task.id, todolistId: id }))
+    const deleteTaskHandler = () => {
+        dispatch(deleteTask({ taskId: task.id, todolistId: id }))
     }
 
-    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(
-            changeTaskStatusAC({
-                id: task.id,
-                todolistId: id,
-                isDone: e.currentTarget.checked,
-            }),
-        )
+    const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        const status = e.currentTarget.checked ? TaskStatus.Completed : TaskStatus.New
+        const newtask = {...task, status}
+        dispatch(changeTaskStatus(newtask))
     }
 
     const changeTaskTitle = (title: string) => {
@@ -50,13 +44,15 @@ export const TaskItem = ({ todolist, task }: Props) => {
         )
     }
 
+    const isTaskCompleted = task.status === TaskStatus.Completed
+
     return (
         <ListItem
-            className={task.isDone ? 'is-done' : ''}
+            className={task.status ? 'is-done' : ''}
             disablePadding
             divider
             secondaryAction={
-                <IconButton onClick={deleteTask} color={'primary'}>
+                <IconButton onClick={deleteTaskHandler} color={'primary'}>
                     <DeleteForeverIcon />
                 </IconButton>
             }
@@ -64,7 +60,7 @@ export const TaskItem = ({ todolist, task }: Props) => {
             <ListItemIcon>
                 <Checkbox
                     checked={isTaskCompleted}
-                    onChange={changeTaskStatus}
+                    onChange={changeTaskStatusHandler}
                     size='small'
                 />
             </ListItemIcon>

@@ -1,7 +1,6 @@
 import { TaskPriority, TaskStatus } from '@/common/enums/enums'
 
 export type DomainTask = {
-    isDone: boolean | undefined
     description: string | null
     title: string
     completed: boolean
