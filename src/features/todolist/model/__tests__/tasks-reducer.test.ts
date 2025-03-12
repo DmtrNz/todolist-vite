@@ -1,7 +1,7 @@
 import { beforeEach, expect, test } from 'vitest'
 import {
     changeTaskStatusAC,
-    changeTaskTitleAC,
+    changeTaskTitle,
     createTaskAC,
     deleteTaskAC,
     tasksReducer,
@@ -82,7 +82,7 @@ test('correct task should be shange correct title', () => {
     //2. Действие
     const endState = tasksReducer(
         startState,
-        changeTaskTitleAC({ todolistId: 'todolistId1', id: '2', title: 'TS' }),
+        changeTaskTitle({ todolistId: 'todolistId1', id: '2', title: 'TS' }),
     )
 
     // 3. Проверка, что действие измененило state соответствующим образом

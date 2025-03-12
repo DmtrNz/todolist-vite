@@ -1,6 +1,6 @@
 import { beforeEach, expect, test } from 'vitest'
 import {
-    changeFilterAC,
+    changeFilter,
     changeTodolistTitleAC,
     createTodolistAC,
     deleteTodolistAC,
@@ -66,7 +66,7 @@ test('correct filter of todolist should be changed', () => {
     const newFilter = 'completed'
     const endState = todolistsReducer(
         startState,
-        changeFilterAC({ todolistId: todolistId2, filter: 'completed' }),
+        changeFilter({ todolistId: todolistId2, filter: 'completed' }),
     )
 
     // 3. Проверка, что действие измененило state соответствующим образом

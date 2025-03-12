@@ -1,7 +1,7 @@
 import { useAppDispatch } from '@/common/hooks'
 import { containerSx } from '@/common/styles'
 import {
-    changeFilterAC,
+    changeFilter,
     DomainTodolist,
     FilterValues,
 } from '@/features/todolist/model/todolists-slice'
@@ -18,7 +18,7 @@ export const FilterButtons = (props: Props) => {
 
     //todolists
     const changeFilter = (filter: FilterValues) => {
-        dispatch(changeFilterAC({ todolistId: id, filter }))
+        dispatch(changeFilter({ todolistId: id, filter }))
     }
 
     return (

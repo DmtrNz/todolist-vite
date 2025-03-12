@@ -11,7 +11,7 @@ import { getListItemSx } from './TaskItem.styles.ts/TaskItem.styles'
 import { DomainTodolist } from '@/features/todolist/model/todolists-slice'
 import {
     changeTaskStatus,
-    changeTaskTitleAC,
+    changeTaskTitle,
     deleteTask,
 } from '@/features/todolist/model/tasks-slice'
 import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
@@ -38,10 +38,9 @@ export const TaskItem = ({ todolist, task }: Props) => {
         dispatch(changeTaskStatus(newtask))
     }
 
-    const changeTaskTitle = (title: string) => {
-        dispatch(
-            changeTaskTitleAC({ todolistId: id, id: task.id, title: title }),
-        )
+    const changeTaskTitleHandler = (title: string) => {
+        const newtask = {...task, title}
+        dispatch(changeTaskTitle(newtask))
     }
 
     const isTaskCompleted = task.status === TaskStatus.Completed
@@ -66,7 +65,7 @@ export const TaskItem = ({ todolist, task }: Props) => {
             </ListItemIcon>
 
             <Box sx={getListItemSx(isTaskCompleted)}>
-                <EditableSpan value={task.title} onChange={changeTaskTitle} />
+                <EditableSpan value={task.title} onChange={changeTaskTitleHandler} />
             </Box>
         </ListItem>
     )
