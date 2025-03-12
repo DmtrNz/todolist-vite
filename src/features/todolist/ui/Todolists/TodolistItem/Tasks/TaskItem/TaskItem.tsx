@@ -10,8 +10,7 @@ import { ChangeEvent } from 'react'
 import { getListItemSx } from './TaskItem.styles.ts/TaskItem.styles'
 import { DomainTodolist } from '@/features/todolist/model/todolists-slice'
 import {
-    changeTaskStatus,
-    changeTaskTitle,
+    updateTask,
     deleteTask,
 } from '@/features/todolist/model/tasks-slice'
 import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
@@ -35,12 +34,12 @@ export const TaskItem = ({ todolist, task }: Props) => {
     const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const status = e.currentTarget.checked ? TaskStatus.Completed : TaskStatus.New
         const newtask = {...task, status}
-        dispatch(changeTaskStatus(newtask))
+        dispatch(updateTask(newtask))
     }
 
     const changeTaskTitleHandler = (title: string) => {
         const newtask = {...task, title}
-        dispatch(changeTaskTitle(newtask))
+        dispatch(updateTask(newtask))
     }
 
     const isTaskCompleted = task.status === TaskStatus.Completed

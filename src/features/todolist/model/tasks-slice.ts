@@ -65,7 +65,7 @@ export const tasksSlice = createAppSlice({
                 }
             }),
 
-            changeTaskStatus: create.asyncThunk(async(task: DomainTask, {dispatch, rejectWithValue} )=>{
+            updateTask: create.asyncThunk(async(task: DomainTask, {dispatch, rejectWithValue} )=>{
                 try{
                     dispatch(setStatus({ status: 'loading' }))
                     await tasksApi.updateTask(task)
@@ -77,33 +77,34 @@ export const tasksSlice = createAppSlice({
                 }
             },{
                 fulfilled: (state, action)=>{
-                    const { id, todoListId, status } = action.payload
+                    const { id, todoListId, status, title } = action.payload
                     const task = state[todoListId].find((t) => t.id === id)
                     if (task) {
                         task.status = status
+                        task.title = title
                     }
                 }
             }),
 
-            changeTaskTitle: create.asyncThunk(async(task: DomainTask, {dispatch, rejectWithValue})=>{
-                try{
-                    dispatch(setStatus({ status: 'loading' }))
-                    await tasksApi.updateTask(task)
-                    dispatch(setStatus({ status: 'succeeded' }))
-                    return task
-                } catch (error){
-                    dispatch(setStatus({ status: 'failed' }))
-                    return rejectWithValue(null)
-                }
-            },{
-                fulfilled: (state, action)=>{
-                    const { id, todoListId, title } = action.payload
-                    const task = state[todoListId].find((t) => t.id === id)
-                    if (task) {
-                        task.title = title
-                    }
-                }
-            })
+            // changeTaskTitle: create.asyncThunk(async(task: DomainTask, {dispatch, rejectWithValue})=>{
+            //     try{
+            //         dispatch(setStatus({ status: 'loading' }))
+            //         await tasksApi.updateTask(task)
+            //         dispatch(setStatus({ status: 'succeeded' }))
+            //         return task
+            //     } catch (error){
+            //         dispatch(setStatus({ status: 'failed' }))
+            //         return rejectWithValue(null)
+            //     }
+            // },{
+            //     fulfilled: (state, action)=>{
+            //         const { id, todoListId, title } = action.payload
+            //         const task = state[todoListId].find((t) => t.id === id)
+            //         if (task) {
+            //             task.title = title
+            //         }
+            //     }
+            // })
         }
     },
 
@@ -126,5 +127,5 @@ export const tasksSlice = createAppSlice({
 })
 
 export const tasksReducer = tasksSlice.reducer
-export const { deleteTask, createTask, changeTaskStatus, changeTaskTitle, setTasks } = tasksSlice.actions
+export const { deleteTask, createTask, updateTask, setTasks } = tasksSlice.actions
 export const { selectTasks } = tasksSlice.selectors
