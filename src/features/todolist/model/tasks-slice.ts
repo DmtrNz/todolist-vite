@@ -85,26 +85,6 @@ export const tasksSlice = createAppSlice({
                     }
                 }
             }),
-
-            // changeTaskTitle: create.asyncThunk(async(task: DomainTask, {dispatch, rejectWithValue})=>{
-            //     try{
-            //         dispatch(setStatus({ status: 'loading' }))
-            //         await tasksApi.updateTask(task)
-            //         dispatch(setStatus({ status: 'succeeded' }))
-            //         return task
-            //     } catch (error){
-            //         dispatch(setStatus({ status: 'failed' }))
-            //         return rejectWithValue(null)
-            //     }
-            // },{
-            //     fulfilled: (state, action)=>{
-            //         const { id, todoListId, title } = action.payload
-            //         const task = state[todoListId].find((t) => t.id === id)
-            //         if (task) {
-            //             task.title = title
-            //         }
-            //     }
-            // })
         }
     },
 
