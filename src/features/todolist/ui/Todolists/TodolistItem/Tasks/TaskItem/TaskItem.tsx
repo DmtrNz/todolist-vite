@@ -24,7 +24,7 @@ type Props = {
 }
 
 export const TaskItem = ({ todolist, task }: Props) => {
-    const { id } = todolist
+    const { id, entityStatus } = todolist
 
     const dispatch = useAppDispatch()
     const deleteTaskHandler = () => {
@@ -43,6 +43,7 @@ export const TaskItem = ({ todolist, task }: Props) => {
     }
 
     const isTaskCompleted = task.status === TaskStatus.Completed
+    const disabled = entityStatus === "loading"
 
     return (
         <ListItem
@@ -50,7 +51,7 @@ export const TaskItem = ({ todolist, task }: Props) => {
             disablePadding
             divider
             secondaryAction={
-                <IconButton onClick={deleteTaskHandler} color={'primary'}>
+                <IconButton onClick={deleteTaskHandler} color={'primary'}  disabled={disabled}>
                     <DeleteForeverIcon />
                 </IconButton>
             }
@@ -60,11 +61,12 @@ export const TaskItem = ({ todolist, task }: Props) => {
                     checked={isTaskCompleted}
                     onChange={changeTaskStatusHandler}
                     size='small'
+                    disabled={disabled}
                 />
             </ListItemIcon>
 
             <Box sx={getListItemSx(isTaskCompleted)}>
-                <EditableSpan value={task.title} onChange={changeTaskTitleHandler} />
+                <EditableSpan value={task.title} onChange={changeTaskTitleHandler} todolist={todolist} />
             </Box>
         </ListItem>
     )

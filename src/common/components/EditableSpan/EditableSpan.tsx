@@ -1,16 +1,20 @@
+import { DomainTodolist } from '@/features/todolist/model/todolists-slice'
 import { TextField } from '@mui/material'
 import { type ChangeEvent, useState } from 'react'
 
 type Props = {
     value: string
     onChange: (title: string) => void
+    todolist: DomainTodolist
 }
 
-export const EditableSpan = ({ value, onChange }: Props) => {
+export const EditableSpan = ({ value, onChange, todolist }: Props) => {
     const [title, setTitle] = useState(value)
     const [isEditMode, setIsEditMode] = useState(false)
+    const { entityStatus } = todolist
 
     const turnOnEditMode = () => {
+        if (entityStatus==="loading") return
         setIsEditMode(true)
     }
 

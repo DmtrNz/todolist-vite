@@ -16,8 +16,8 @@ let startState: DomainTodolist[] = [];
 
 beforeEach(() => {
     startState = [
-        { id: todolistId1, title: 'What to learn', addedDate: '', order: 0, filter: 'all' },
-        { id: todolistId2, title: 'What to buy', addedDate: '', order: 0, filter: 'all' },
+        { id: todolistId1, title: 'What to learn', addedDate: '', order: 0, filter: 'all', entityStatus: 'idle' },
+        { id: todolistId2, title: 'What to buy', addedDate: '', order: 0, filter: 'all', entityStatus: 'idle' },
     ];
 });
 
@@ -40,14 +40,16 @@ test('correct todolist should be created', () => {
     const endState = todolistsReducer(
         startState,
         createTodolist.fulfilled(
-            { todolistId: 'newTodolistId', title: newTodotitle }, // payload
+            //{ todolistId: 'newTodolistId', title: newTodotitle }, // payload
+            { todolist: { id: 'newTodolistId', title: newTodotitle, addedDate: '', order: 0 } }, // payload
             'requestId', // requestId
             { title: newTodotitle } // аргументы, переданные в createTodolist
         )
     );
 
     expect(endState.length).toBe(3);
-    expect(endState[2].title).toBe(newTodotitle);
+    //expect(endState[2].title).toBe(newTodotitle);
+    expect(endState[0].title).toBe(newTodotitle);
 });
 
 test('correct todolist should change its title', () => {

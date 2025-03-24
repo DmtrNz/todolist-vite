@@ -4,9 +4,10 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 
 type Props = {
     onCreateItem: (title: string) => void
+    disabled?: boolean
 }
 
-export const CreateItemForm = ({ onCreateItem }: Props) => {
+export const CreateItemForm = ({ onCreateItem, disabled }: Props) => {
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
 
@@ -44,11 +45,13 @@ export const CreateItemForm = ({ onCreateItem }: Props) => {
                 value={title}
                 onChange={changeTitleHandler}
                 onKeyDown={createItemOnEnterHandler}
+                disabled={disabled}
             />
             <Button
                 disableElevation
                 variant='contained'
                 onClick={createItemHandler}
+                disabled={disabled}
                 endIcon={<AddCircleOutlineIcon />}
             >
                 add

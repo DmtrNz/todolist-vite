@@ -222,7 +222,8 @@ test('array with empty tasks should be added with new todolist', () => {
     const endState = tasksReducer(
         startState,
         createTodolist.fulfilled(
-            { todolistId: 'todolistId3', title: 'new todolist' },
+            // { todolistId: 'todolistId3', title: 'new todolist'  },
+            { todolist: { id: 'todolistId3', title: 'newTodotitle', addedDate: '', order: 0 } },
             'requestId',
             { title: 'new todolist' }
         )

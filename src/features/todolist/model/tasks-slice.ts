@@ -1,8 +1,9 @@
 import { createTodolist, deleteTodolist } from './todolists-slice'
-import { createAppSlice } from '@/common/utils'
+import { createAppSlice, handleServerAppError, handleServerNetworkError } from '@/common/utils'
 import { tasksApi } from '../api/tasksApi'
 import { DomainTask } from '../api/tasksApi.types'
 import { setStatus } from '@/app/app-slice'
+import { ResultCode } from '@/common/enums/enums'
 
 export type TasksState = Record<string, DomainTask[]>
 
@@ -27,32 +28,42 @@ export const tasksSlice = createAppSlice({
                     state[action.payload.todolistId] = action.payload.tasks
                 }
             }),
-
+            //Example:
             createTask: create.asyncThunk(async (args: { todolistId: string, title: string }, { dispatch, rejectWithValue })=>{
                 try{
                     dispatch(setStatus({ status: 'loading' }))
                     const res = await tasksApi.createTask(args)
-                    dispatch(setStatus({ status: 'succeeded' }))
-                    return { task: res.data.data.item }
+                    if(res.data.resultCode === ResultCode.Success) {
+                        dispatch(setStatus({ status: 'succeeded' }))
+                        return { task: res.data.data.item }
+                    } else {
+                        handleServerAppError(res.data, dispatch)
+                        return rejectWithValue(null)
+                    }
                 } catch(error) {
-                    dispatch(setStatus({ status: 'failed' }))
+                    handleServerNetworkError(error, dispatch)
                     return rejectWithValue(null)
                 }
             },{
                 fulfilled: (state, action)=>{
                     const task = action.payload.task
                     state[task.todoListId].unshift(task)
-                }
+                },
             }),
 
             deleteTask: create.asyncThunk(async(args: { todolistId: string, taskId: string }, { dispatch, rejectWithValue} )=>{
                 try{
                     dispatch(setStatus({ status: 'loading' }))
-                    await tasksApi.deleteTask(args)
-                    dispatch(setStatus({ status: 'succeeded' }))
-                    return args
+                    const res = await tasksApi.deleteTask(args)
+                    if(res.data.resultCode === ResultCode.Success) {
+                        dispatch(setStatus({ status: 'succeeded' }))
+                        return args
+                    } else {
+                        handleServerAppError(res.data, dispatch)
+                        return rejectWithValue(null)
+                    }
                 } catch(error) {
-                    dispatch(setStatus({ status: 'failed' }))
+                    handleServerNetworkError(error, dispatch)
                     return rejectWithValue(null)
                 }
             },{
@@ -68,11 +79,16 @@ export const tasksSlice = createAppSlice({
             updateTask: create.asyncThunk(async(task: DomainTask, {dispatch, rejectWithValue} )=>{
                 try{
                     dispatch(setStatus({ status: 'loading' }))
-                    await tasksApi.updateTask(task)
-                    dispatch(setStatus({ status: 'succeeded' }))
-                    return task
+                    const res = await tasksApi.updateTask(task)
+                    if(res.data.resultCode === ResultCode.Success){
+                        dispatch(setStatus({ status: 'succeeded' }))
+                        return task
+                    } else {
+                        handleServerAppError(res.data, dispatch)
+                        return rejectWithValue(null)
+                    }
                 } catch(error) {
-                    dispatch(setStatus({ status: 'failed' }))
+                    handleServerNetworkError(error, dispatch)
                     return rejectWithValue(null)
                 }
             },{
@@ -91,8 +107,8 @@ export const tasksSlice = createAppSlice({
     extraReducers: (builder) => {
         builder
             .addCase(createTodolist.fulfilled, (state, action) => {
-                const { todolistId } = action.payload;
-                state[todolistId] = []
+                const { id } = action.payload.todolist;
+                state[id] = []
             })
             .addCase(deleteTodolist.fulfilled, (state, action) => {
                 const { todolistId } = action.payload
