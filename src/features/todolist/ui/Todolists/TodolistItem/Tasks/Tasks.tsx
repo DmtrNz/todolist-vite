@@ -7,46 +7,46 @@ import { useEffect } from 'react'
 import { TaskStatus } from '@/common/enums/enums'
 
 type Props = {
-    todolist: DomainTodolist
+  todolist: DomainTodolist
 }
 
 export const Tasks = (props: Props) => {
-    const { id, filter } = props.todolist
+  const { id, filter } = props.todolist
 
-    const tasks = useAppSelector(selectTasks)
+  const tasks = useAppSelector(selectTasks)
 
-    const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
-    useEffect(()=>{
-        dispatch(setTasks(id))
-    },[])
+  useEffect(() => {
+    dispatch(setTasks(id))
+  }, [])
 
-    const todolistTasks = tasks[id]
-    let filteredTasks = todolistTasks
-    if (filter === 'active') {
-        filteredTasks = todolistTasks.filter((task) => task.status ===  TaskStatus.New)
-    }
-    if (filter === 'completed') {
-        filteredTasks = todolistTasks.filter((task) => task.status === TaskStatus.Completed)
-    }
-
-    return (
-        <>
-            {filteredTasks?.length === 0 ? (
-                <p>Тасок нет</p>
-            ) : (
-                <List>
-                    {filteredTasks?.map((task) => {
-                        return (
-                            <TaskItem
-                                key={task.id}
-                                todolist={props.todolist}
-                                task={task}
-                            />
-                        )
-                    })}
-                </List>
-            )}
-        </>
+  const todolistTasks = tasks[id]
+  let filteredTasks = todolistTasks
+  if (filter === 'active') {
+    filteredTasks = todolistTasks.filter(
+      (task) => task.status === TaskStatus.New,
     )
+  }
+  if (filter === 'completed') {
+    filteredTasks = todolistTasks.filter(
+      (task) => task.status === TaskStatus.Completed,
+    )
+  }
+
+  return (
+    <>
+      {filteredTasks?.length === 0 ? (
+        <p>Тасок нет</p>
+      ) : (
+        <List>
+          {filteredTasks?.map((task) => {
+            return (
+              <TaskItem key={task.id} todolist={props.todolist} task={task} />
+            )
+          })}
+        </List>
+      )}
+    </>
+  )
 }

@@ -7,25 +7,28 @@ import { DomainTodolist } from '@/features/todolist/model/todolists-slice'
 import { createTask } from '@/features/todolist/model/tasks-slice'
 
 type Props = {
-    todolist: DomainTodolist
+  todolist: DomainTodolist
 }
 
 export const TodolistItem = (props: Props) => {
-    const { id } = props.todolist
+  const { id } = props.todolist
 
-    const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
-    //tasks
-    const createTaskHandler = (title: string) => {
-        dispatch(createTask({ title, todolistId: id }))
-    }
+  //tasks
+  const createTaskHandler = (title: string) => {
+    dispatch(createTask({ title, todolistId: id }))
+  }
 
-    return (
-        <div>
-            <TodolistTitle todolist={props.todolist} />
-            <CreateItemForm onCreateItem={createTaskHandler} disabled={props.todolist.entityStatus==="loading"} /> 
-            <Tasks todolist={props.todolist} />
-            <FilterButtons todolist={props.todolist} />
-        </div>
-    )
+  return (
+    <div>
+      <TodolistTitle todolist={props.todolist} />
+      <CreateItemForm
+        onCreateItem={createTaskHandler}
+        disabled={props.todolist.entityStatus === 'loading'}
+      />
+      <Tasks todolist={props.todolist} />
+      <FilterButtons todolist={props.todolist} />
+    </div>
+  )
 }

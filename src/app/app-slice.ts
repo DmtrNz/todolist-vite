@@ -2,34 +2,30 @@ import { RequestStatus } from '@/common/types'
 import { createSlice } from '@reduxjs/toolkit'
 
 export const appSlice = createSlice({
-    name: 'app',
-    initialState: {
-        themeMode: 'light' as ThemeMode,
-        status: 'loading' as RequestStatus,
-        error: null as string | null
-    },
-    reducers: (create) => ({
-        changeThemeModeAC: create.reducer<{ themeMode: ThemeMode }>(
-            (state, action) => {
-                state.themeMode = action.payload.themeMode
-            },
-        ),
-        setStatus: create.reducer<{ status: RequestStatus }>(
-            (state, action) => {
-                state.status = action.payload.status
-            },
-        ),
-        setError: create.reducer<{ error: string | null }>(
-            (state, action) => {
-                state.error = action.payload.error
-            },
-        ),
+  name: 'app',
+  initialState: {
+    themeMode: 'light' as ThemeMode,
+    status: 'loading' as RequestStatus,
+    error: null as string | null,
+  },
+  reducers: (create) => ({
+    changeThemeModeAC: create.reducer<{ themeMode: ThemeMode }>(
+      (state, action) => {
+        state.themeMode = action.payload.themeMode
+      },
+    ),
+    setStatus: create.reducer<{ status: RequestStatus }>((state, action) => {
+      state.status = action.payload.status
     }),
-    selectors: {
-        selectThemeMode: (state) => state.themeMode,
-        selectStatus: (state) => state.status,
-        selectError: (state) => state.error
-    }
+    setError: create.reducer<{ error: string | null }>((state, action) => {
+      state.error = action.payload.error
+    }),
+  }),
+  selectors: {
+    selectThemeMode: (state) => state.themeMode,
+    selectStatus: (state) => state.status,
+    selectError: (state) => state.error,
+  },
 })
 
 export const appReducer = appSlice.reducer

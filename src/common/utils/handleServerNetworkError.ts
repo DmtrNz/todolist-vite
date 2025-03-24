@@ -1,19 +1,22 @@
-import { setError, setStatus } from "@/app/app-slice"
-import type { Dispatch } from "@reduxjs/toolkit"
-import axios from "axios"
+import { setError, setStatus } from '@/app/app-slice'
+import type { Dispatch } from '@reduxjs/toolkit'
+import axios from 'axios'
 
-export const handleServerNetworkError = (error: unknown, dispatch: Dispatch) => {
-    let errorMessage
-    if (axios.isAxiosError(error)) {
-        errorMessage = error.message
-    } else if (error instanceof Error) {
-        errorMessage = error.message
-    } else {
-        errorMessage = JSON.stringify(error)
-    }
+export const handleServerNetworkError = (
+  error: unknown,
+  dispatch: Dispatch,
+) => {
+  let errorMessage
+  if (axios.isAxiosError(error)) {
+    errorMessage = error.message
+  } else if (error instanceof Error) {
+    errorMessage = error.message
+  } else {
+    errorMessage = JSON.stringify(error)
+  }
 
-    dispatch(setError({ error: errorMessage }))
-    dispatch(setStatus({ status: "failed" }))
+  dispatch(setError({ error: errorMessage }))
+  dispatch(setStatus({ status: 'failed' }))
 }
 /*
 if (axios.isAxiosError(error)): Проверяет, является ли ошибка (error) специфической ошибкой axios (например, ошибка сетевого запроса). Если да, то извлекает сообщение об ошибке из свойства error.message. 

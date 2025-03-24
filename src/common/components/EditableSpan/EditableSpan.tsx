@@ -3,43 +3,43 @@ import { TextField } from '@mui/material'
 import { type ChangeEvent, useState } from 'react'
 
 type Props = {
-    value: string
-    onChange: (title: string) => void
-    todolist: DomainTodolist
+  value: string
+  onChange: (title: string) => void
+  todolist: DomainTodolist
 }
 
 export const EditableSpan = ({ value, onChange, todolist }: Props) => {
-    const [title, setTitle] = useState(value)
-    const [isEditMode, setIsEditMode] = useState(false)
-    const { entityStatus } = todolist
+  const [title, setTitle] = useState(value)
+  const [isEditMode, setIsEditMode] = useState(false)
+  const { entityStatus } = todolist
 
-    const turnOnEditMode = () => {
-        if (entityStatus==="loading") return
-        setIsEditMode(true)
-    }
+  const turnOnEditMode = () => {
+    if (entityStatus === 'loading') return
+    setIsEditMode(true)
+  }
 
-    const turnOffEditMode = () => {
-        setIsEditMode(false)
-        onChange(title)
-    }
+  const turnOffEditMode = () => {
+    setIsEditMode(false)
+    onChange(title)
+  }
 
-    const changeTitle = (event: ChangeEvent<HTMLInputElement>) => {
-        setTitle(event.currentTarget.value)
-    }
+  const changeTitle = (event: ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.currentTarget.value)
+  }
 
-    return (
-        <>
-            {isEditMode ? (
-                <TextField
-                    variant='standard'
-                    value={title}
-                    onChange={changeTitle}
-                    onBlur={turnOffEditMode}
-                    autoFocus
-                />
-            ) : (
-                <span onDoubleClick={turnOnEditMode}>{value}</span>
-            )}
-        </>
-    )
+  return (
+    <>
+      {isEditMode ? (
+        <TextField
+          variant='standard'
+          value={title}
+          onChange={changeTitle}
+          onBlur={turnOffEditMode}
+          autoFocus
+        />
+      ) : (
+        <span onDoubleClick={turnOnEditMode}>{value}</span>
+      )}
+    </>
+  )
 }

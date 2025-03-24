@@ -8,19 +8,18 @@ import { getTheme } from '@/common/theme'
 import { selectThemeMode } from './app-slice'
 import { ErrorSnackbar } from '@/common/components/ErrorSnackbar/ErrorSnackbar'
 
-
 export const App = () => {
-    const themeMode = useAppSelector(selectThemeMode)
-    const theme = getTheme(themeMode)
+  const themeMode = useAppSelector(selectThemeMode)
+  const theme = getTheme(themeMode)
 
-    return (
-        <div className='app'>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <Header />
-                <Main />
-                <ErrorSnackbar/>
-            </ThemeProvider>
-        </div>
-    )
+  return (
+    <div className='app'>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Header />
+        <Main />
+        <ErrorSnackbar />
+      </ThemeProvider>
+    </div>
+  )
 }
