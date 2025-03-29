@@ -12,7 +12,7 @@ import TextField from '@mui/material/TextField'
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import s from "./Login.module.css"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Inputs, loginSchema } from "../../api/lib/schemas"
+import { Inputs, loginSchema } from "../../lib/schemas"
 import { Path } from "@/common/routing/Routing"
 import { Link } from "react-router"
 // import { useNavigate } from "react-router"
