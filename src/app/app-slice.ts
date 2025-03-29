@@ -5,7 +5,7 @@ export const appSlice = createSlice({
   name: 'app',
   initialState: {
     themeMode: 'light' as ThemeMode,
-    status: 'loading' as RequestStatus,
+    status: 'idle' as RequestStatus,
     error: null as string | null,
   },
   reducers: (create) => ({

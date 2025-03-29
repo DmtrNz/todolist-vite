@@ -3,9 +3,10 @@ import type { Dispatch } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export const handleServerNetworkError = (
-  error: unknown,
+  error: any,
   dispatch: Dispatch,
 ) => {
+  console.table(error.issue)
   let errorMessage
   if (axios.isAxiosError(error)) {
     errorMessage = error.message

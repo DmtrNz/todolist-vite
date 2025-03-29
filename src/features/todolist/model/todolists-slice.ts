@@ -1,4 +1,4 @@
-import { Todolist } from '../api/todolistApi.types'
+import { domainTodolistSchema, Todolist } from '../api/todolistApi.types'
 import { todolistApi } from '../api/todolistApi'
 import {
   createAppSlice,
@@ -77,8 +77,9 @@ export const todolistSlice = createAppSlice({
       setTodolists: create.asyncThunk(
         async (_arg, { dispatch, rejectWithValue }) => {
           try {
-            dispatch(setStatus({ status: 'loading' }))
+            dispatch(setStatus({ status: 'loading' })) 
             const res = await todolistApi.getTodolists()
+            domainTodolistSchema.array().parse(res.data) //ZOD валидация данных
             dispatch(setStatus({ status: 'succeeded' }))
             return { todolists: res.data }
           } catch (error) {

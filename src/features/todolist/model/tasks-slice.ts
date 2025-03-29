@@ -5,7 +5,7 @@ import {
   handleServerNetworkError,
 } from '@/common/utils'
 import { tasksApi } from '../api/tasksApi'
-import { DomainTask } from '../api/tasksApi.types'
+import { DomainTask, domainTaskSchema } from '../api/tasksApi.types'
 import { setStatus } from '@/app/app-slice'
 import { ResultCode } from '@/common/enums/enums'
 
@@ -21,10 +21,11 @@ export const tasksSlice = createAppSlice({
           try {
             dispatch(setStatus({ status: 'loading' }))
             const res = await tasksApi.getTasks(todolistId)
+            domainTaskSchema.array().parse(res.data.items) //ZOD валидация данных
             dispatch(setStatus({ status: 'succeeded' }))
             return { tasks: res.data.items, todolistId }
           } catch (error) {
-            dispatch(setStatus({ status: 'failed' }))
+            handleServerNetworkError(error, dispatch)
             return rejectWithValue(null)
           }
         },
