@@ -17,7 +17,7 @@ export const FilterButtons = (props: Props) => {
   const dispatch = useAppDispatch()
 
   //todolists
-  const changeFilter = (filter: FilterValues) => {
+  const changeFilterHandker = (filter: FilterValues) => {
     dispatch(changeFilter({ todolistId: id, filter }))
   }
 
@@ -26,21 +26,21 @@ export const FilterButtons = (props: Props) => {
       <Button
         color={filter === 'all' ? 'secondary' : 'primary'}
         variant='contained'
-        onClick={() => changeFilter('all')}
+        onClick={() => changeFilterHandker('all')}
       >
         All
       </Button>
       <Button
         color={filter === 'active' ? 'secondary' : 'primary'}
         variant='contained'
-        onClick={() => changeFilter('active')}
+        onClick={() => changeFilterHandker('active')}
       >
         Active
       </Button>
       <Button
         color={filter === 'completed' ? 'secondary' : 'primary'}
         variant='contained'
-        onClick={() => changeFilter('completed')}
+        onClick={() => changeFilterHandker('completed')}
       >
         Completed
       </Button>
