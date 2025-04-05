@@ -8,6 +8,7 @@ import { tasksApi } from '../api/tasksApi'
 import { DomainTask, domainTaskSchema } from '../api/tasksApi.types'
 import { setStatus } from '@/app/app-slice'
 import { ResultCode } from '@/common/enums/enums'
+import { clearData } from '@/common/action'
 
 export type TasksState = Record<string, DomainTask[]>
 
@@ -135,6 +136,9 @@ export const tasksSlice = createAppSlice({
       .addCase(deleteTodolist.fulfilled, (state, action) => {
         const { todolistId } = action.payload
         delete state[todolistId]
+      })
+      .addCase(clearData, ()=>{
+        return {}
       })
   },
 

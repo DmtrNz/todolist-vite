@@ -7,6 +7,7 @@ import {
 } from '@/features/todolist/model/todolists-slice'
 import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
 import { useAppDispatch } from '@/common/hooks'
+import styles from "/src/app/App.module.css"
 
 type Props = {
   todolist: DomainTodolist
@@ -27,7 +28,7 @@ export const TodolistTitle = (props: Props) => {
   }
 
   return (
-    <div className={'container'}>
+    <div className={styles.container}>
       <Typography variant='h5' align={'center'} sx={{ fontWeight: 700 }}>
         <EditableSpan
           value={title}

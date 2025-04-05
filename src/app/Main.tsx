@@ -1,12 +1,12 @@
 import { CreateItemForm } from '@/common/components/CreateItemForm/CreateItemForm'
 import { useAppDispatch } from '@/common/hooks'
-
 import { createTodolist } from '@/features/todolist/model/todolists-slice'
 import { Todolists } from '@/features/todolist/ui/Todolists/Todolists'
 import { Container, Grid2 } from '@mui/material'
 
 export const Main = () => {
   const dispatch = useAppDispatch()
+  // const isLoggedIn = useSelector(selectIsLoggedIn)
 
   //todolists
   const createTodolistHandler = (title: string) => {

@@ -8,6 +8,7 @@ import {
 import { setStatus } from '@/app/app-slice'
 import { RequestStatus } from '@/common/types'
 import { ResultCode } from '@/common/enums/enums'
+import { clearData } from '@/common/action'
 
 export type DomainTodolist = Todolist & {
   filter: FilterValues
@@ -19,34 +20,6 @@ export type FilterValues = 'all' | 'active' | 'completed'
 export const todolistSlice = createAppSlice({
   name: 'todolists',
   initialState: [] as DomainTodolist[],
-  // extraReducers: (builder) => {
-  //     builder
-  //         .addCase(changeTodolistTitle.fulfilled, (state, action)=>{
-  //             const { todolistId, title } = action.payload
-  //             const index = state.findIndex((todolist) => todolist.id === todolistId)
-  //             if (index !== -1) {
-  //                 state[index].title = title
-  //             }
-  //         })
-  //         .addCase(deleteTodolist.fulfilled, (state, action)=>{
-  //             const { todolistId } = action.payload
-  //             const index = state.findIndex((t) => t.id === todolistId)
-  //                 if (index !== -1) {
-  //                     state.splice(index, 1)
-  //                 }
-  //         // })
-  //         .addCase(createTodolist.fulfilled, (state, action)=>{
-  //             const {todolistId, title}= action.payload
-  //             const newTodolist: DomainTodolist = {
-  //                 title: title,
-  //                 id: todolistId,
-  //                 filter: 'all',
-  //                 addedDate: "",
-  //                 order: 0
-  //             };
-  //             state.push(newTodolist);
-  //         })
-  //     },
   reducers: (create) => {
     return {
       //actions
@@ -88,13 +61,16 @@ export const todolistSlice = createAppSlice({
           }
         },
         {
-          fulfilled: (state, action) => {
-            action.payload?.todolists.forEach((todolist) => {
-              state.push({
-                ...todolist,
-                filter: 'all',
-                entityStatus: 'idle',
-              })
+          fulfilled: (_state, action) => {
+            // action.payload?.todolists.forEach((todolist) => {
+            //   state.push({
+            //     ...todolist,
+            //     filter: 'all',
+            //     entityStatus: 'idle',
+            //   })
+            // })
+            return action.payload.todolists.map((todolist)=>{
+              return { ...todolist, filter: "all", entityStatus: 'idle' }
             })
           },
         },
@@ -207,6 +183,13 @@ export const todolistSlice = createAppSlice({
         },
       ),
     }
+  },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(clearData, ()=>{
+        return []
+      })
   },
 
   selectors: {
