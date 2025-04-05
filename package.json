@@ -2,10 +2,13 @@
   "name": "todolist-07",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://DmtrNz.github.io/todolist-vite/",
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
     "build": "tsc -b && vite build",
+    "predeploy": "pnpm run build",
+    "deploy": "gh-pages -d dist",
     "test": "vitest",
     "preview": "vite preview"
   },
