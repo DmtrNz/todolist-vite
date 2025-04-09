@@ -1,13 +1,11 @@
 import { IconButton, Typography } from '@mui/material'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import {
-  changeTodolistTitle,
-  deleteTodolist,
   DomainTodolist,
 } from '@/features/todolist/model/todolists-slice'
 import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
-import { useAppDispatch } from '@/common/hooks'
 import styles from "/src/app/App.module.css"
+import { useChangeTodolistTitleMutation, useDeleteTodolistMutation } from '@/features/todolist/api/todolistApi'
 
 type Props = {
   todolist: DomainTodolist
@@ -16,15 +14,17 @@ type Props = {
 export const TodolistTitle = (props: Props) => {
   const { id, title, entityStatus } = props.todolist
 
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
+  const [ deleteTodolist ] = useDeleteTodolistMutation() //Возвращает массив, где первый элемент (deleteTodolist) — это функция для вызова мутации.Второй элемент (здесь не используется) содержит статус запроса (isLoading, error и т. д.)
 
-  //todolists
+  const [ changeTodolistTitle ] = useChangeTodolistTitleMutation()
+
   const deleteTodolistHandler = () => {
-    dispatch(deleteTodolist({ todolistId: id }))
+    deleteTodolist(id) //Вызывает мутацию удаления, передавая id тудулиста
   }
 
   const changeTodolistTitleHandler = (title: string) => {
-    dispatch(changeTodolistTitle({ todolistId: id, title }))
+    changeTodolistTitle({title, id}) 
   }
 
   return (

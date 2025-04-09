@@ -1,10 +1,10 @@
-import { selectIsLoggedIn } from "@/features/model/auth-slice"
 import { useAppSelector } from "../hooks"
 import { Route, Routes } from "react-router"
 import { Main } from "@/app/Main"
 import { ProtectedRoute } from "../components/ProtectedRoute/ProtectedRoute"
 import { PageNotFound } from "../components"
 import { Login } from "@/features/auth/ui/Login/Login"
+import { selectIsLoggedIn } from "@/app/app-slice"
 
 
 export const Path = {

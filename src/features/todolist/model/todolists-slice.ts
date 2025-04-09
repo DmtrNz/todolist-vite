@@ -1,5 +1,5 @@
 import { domainTodolistSchema, Todolist } from '../api/todolistApi.types'
-import { todolistApi } from '../api/todolistApi'
+import { _todolistApi } from '../api/todolistApi'
 import {
   createAppSlice,
   handleServerAppError,
@@ -51,7 +51,7 @@ export const todolistSlice = createAppSlice({
         async (_arg, { dispatch, rejectWithValue }) => {
           try {
             dispatch(setStatus({ status: 'loading' })) 
-            const res = await todolistApi.getTodolists()
+            const res = await _todolistApi.getTodolists()
             domainTodolistSchema.array().parse(res.data) //ZOD валидация данных
             dispatch(setStatus({ status: 'succeeded' }))
             return { todolists: res.data }
@@ -76,7 +76,7 @@ export const todolistSlice = createAppSlice({
         ) => {
           try {
             dispatch(setStatus({ status: 'loading' }))
-            const res = await todolistApi.changeTodolistTitle(arg)
+            const res = await _todolistApi.changeTodolistTitle(arg)
             if (res.data.resultCode === ResultCode.Success) {
               dispatch(setStatus({ status: 'succeeded' }))
               return arg
@@ -112,7 +112,7 @@ export const todolistSlice = createAppSlice({
                 todolistId: arg.todolistId,
               }),
             )
-            const res = await todolistApi.deleteTodolist(arg)
+            const res = await _todolistApi.deleteTodolist(arg)
             if (res.data.resultCode === ResultCode.Success) {
               dispatch(setStatus({ status: 'succeeded' }))
               return arg
@@ -152,7 +152,7 @@ export const todolistSlice = createAppSlice({
         async (arg: { title: string }, { dispatch, rejectWithValue }) => {
           try {
             dispatch(setStatus({ status: 'loading' }))
-            const res = await todolistApi.createTodolist(arg)
+            const res = await _todolistApi.createTodolist(arg)
             if (res.data.resultCode === ResultCode.Success) {
               dispatch(setStatus({ status: 'succeeded' }))
               return { todolist: res.data.data.item }

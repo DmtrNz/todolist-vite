@@ -5,14 +5,18 @@ import MenuIcon from '@mui/icons-material/Menu'
 import { Container, LinearProgress, Switch } from '@mui/material'
 import {
   changeThemeModeAC,
+  selectIsLoggedIn,
   selectStatus,
   selectThemeMode,
+  setIsLoggedIn,
 } from '@/app/app-slice'
 import { getTheme } from '@/common/theme/theme'
 import { NavButton } from '../NavButton/NavButton'
 import { useAppDispatch, useAppSelector } from '@/common/hooks'
 import { containerSx } from '@/common/styles'
-import { logoutTC, selectIsLoggedIn } from '@/features/model/auth-slice'
+import { useLogoutMutation } from '@/features/auth/api/authApi'
+import { ResultCode } from '@/common/enums/enums'
+import { AUTH_TOKEN } from '@/common/constans'
 
 export const Header = () => {
   const themeMode = useAppSelector(selectThemeMode)
@@ -20,6 +24,8 @@ export const Header = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
   const dispatch = useAppDispatch()
+
+  const [logout ] = useLogoutMutation()
 
   const changeThemeHandler = () => {
     dispatch(
@@ -29,8 +35,19 @@ export const Header = () => {
     )
   }
 
+  // const logoutHandler = () => {
+  //   dispatch(logoutTC())
+  // }
+
   const logoutHandler = () => {
-    dispatch(logoutTC())
+    logout().then((res) => {
+      if (res.data?.resultCode === ResultCode.Success) {
+        // dispatch(setStatus({ status: 'succeeded' }))
+        // dispatch(clearData()) //не нужно очищать store, т.к. todolists лежат в кэше
+        localStorage.removeItem(AUTH_TOKEN)
+        dispatch(setIsLoggedIn({ isLoggedIn: false }))
+      }
+    })
   }
 
   const theme = getTheme(themeMode)
