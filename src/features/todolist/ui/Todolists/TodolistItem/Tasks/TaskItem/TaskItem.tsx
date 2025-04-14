@@ -9,11 +9,10 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import { ChangeEvent } from 'react'
 import { getListItemSx } from './TaskItem.styles.ts/TaskItem.styles'
 import { DomainTodolist } from '@/features/todolist/model/todolists-slice'
-import { updateTask, deleteTask } from '@/features/todolist/model/tasks-slice'
 import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
-import { useAppDispatch } from '@/common/hooks'
 import { DomainTask } from '@/features/todolist/api/tasksApi.types'
 import { TaskStatus } from '@/common/enums/enums'
+import { useDeleteTaskMutation, useUpdateTaskMutation } from '@/features/todolist/api/tasksApi'
 
 type Props = {
   todolist: DomainTodolist
@@ -23,9 +22,11 @@ type Props = {
 export const TaskItem = ({ todolist, task }: Props) => {
   const { id, entityStatus } = todolist
 
-  const dispatch = useAppDispatch()
+  const [deleteTask] = useDeleteTaskMutation()
+  const [updateTask] = useUpdateTaskMutation()
+
   const deleteTaskHandler = () => {
-    dispatch(deleteTask({ taskId: task.id, todolistId: id }))
+    deleteTask({ taskId: task.id, todolistId: id })
   }
 
   const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,12 +34,12 @@ export const TaskItem = ({ todolist, task }: Props) => {
       ? TaskStatus.Completed
       : TaskStatus.New
     const newtask = { ...task, status }
-    dispatch(updateTask(newtask))
+    updateTask({ taskId: task.id, todolistId: todolist.id, newtask })
   }
 
   const changeTaskTitleHandler = (title: string) => {
     const newtask = { ...task, title }
-    dispatch(updateTask(newtask))
+    updateTask({ taskId: task.id, todolistId: todolist.id, newtask })
   }
 
   const isTaskCompleted = task.status === TaskStatus.Completed

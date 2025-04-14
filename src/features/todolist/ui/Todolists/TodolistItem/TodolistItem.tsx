@@ -2,9 +2,8 @@ import { TodolistTitle } from './TodolistTitle/TodolistTitle'
 import { CreateItemForm } from '@/common/components/CreateItemForm/CreateItemForm'
 import { Tasks } from './Tasks/Tasks'
 import { FilterButtons } from './FilterButtons/FilterButtons'
-import { useAppDispatch } from '@/common/hooks'
 import { DomainTodolist } from '@/features/todolist/model/todolists-slice'
-import { createTask } from '@/features/todolist/model/tasks-slice'
+import { useCreateTaskMutation } from '@/features/todolist/api/tasksApi'
 
 type Props = {
   todolist: DomainTodolist
@@ -13,11 +12,11 @@ type Props = {
 export const TodolistItem = (props: Props) => {
   const { id } = props.todolist
 
-  const dispatch = useAppDispatch()
+  const [ createTask ] = useCreateTaskMutation()
 
   //tasks
   const createTaskHandler = (title: string) => {
-    dispatch(createTask({ title, todolistId: id }))
+    createTask({ title, todolistId: id })
   }
 
   return (

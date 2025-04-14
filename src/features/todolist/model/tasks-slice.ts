@@ -4,7 +4,7 @@ import {
   handleServerAppError,
   handleServerNetworkError,
 } from '@/common/utils'
-import { tasksApi } from '../api/tasksApi'
+import { _tasksApi } from '../api/tasksApi'
 import { DomainTask, domainTaskSchema } from '../api/tasksApi.types'
 import { setStatus } from '@/app/app-slice'
 import { ResultCode } from '@/common/enums/enums'
@@ -21,7 +21,7 @@ export const tasksSlice = createAppSlice({
         async (todolistId: string, { dispatch, rejectWithValue }) => {
           try {
             dispatch(setStatus({ status: 'loading' }))
-            const res = await tasksApi.getTasks(todolistId)
+            const res = await _tasksApi.getTasks(todolistId)
             domainTaskSchema.array().parse(res.data.items) //ZOD валидация данных
             dispatch(setStatus({ status: 'succeeded' }))
             return { tasks: res.data.items, todolistId }
@@ -44,7 +44,7 @@ export const tasksSlice = createAppSlice({
         ) => {
           try {
             dispatch(setStatus({ status: 'loading' }))
-            const res = await tasksApi.createTask(args)
+            const res = await _tasksApi.createTask(args)
             if (res.data.resultCode === ResultCode.Success) {
               dispatch(setStatus({ status: 'succeeded' }))
               return { task: res.data.data.item }
@@ -72,7 +72,7 @@ export const tasksSlice = createAppSlice({
         ) => {
           try {
             dispatch(setStatus({ status: 'loading' }))
-            const res = await tasksApi.deleteTask(args)
+            const res = await _tasksApi.deleteTask(args)
             if (res.data.resultCode === ResultCode.Success) {
               dispatch(setStatus({ status: 'succeeded' }))
               return args
@@ -100,7 +100,7 @@ export const tasksSlice = createAppSlice({
         async (task: DomainTask, { dispatch, rejectWithValue }) => {
           try {
             dispatch(setStatus({ status: 'loading' }))
-            const res = await tasksApi.updateTask(task)
+            const res = await _tasksApi.updateTask(task)
             if (res.data.resultCode === ResultCode.Success) {
               dispatch(setStatus({ status: 'succeeded' }))
               return task
