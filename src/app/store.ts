@@ -1,5 +1,3 @@
-import { tasksReducer, tasksSlice } from '@/features/todolist/model/tasks-slice'
-import { todolistSlice, todolistsReducer } from '@/features/todolist/model/todolists-slice'
 import { configureStore } from '@reduxjs/toolkit'
 import { appReducer, appSlice } from './app-slice'
 import { setupListeners } from '@reduxjs/toolkit/query'
@@ -7,8 +5,6 @@ import { baseApi } from './baseApi'
 
 export const store = configureStore({
   reducer: {
-    [tasksSlice.name]: tasksReducer,
-    [todolistSlice.name]: todolistsReducer,
     [appSlice.name]: appReducer,
     // [authSlice.name]: authReducer,
     [baseApi.reducerPath]: baseApi.reducer, //Подключает редюсер RTK Query к хранилищу Redux.

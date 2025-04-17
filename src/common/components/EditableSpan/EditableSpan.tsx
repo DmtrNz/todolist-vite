@@ -1,4 +1,4 @@
-import { DomainTodolist } from '@/features/todolist/model/todolists-slice'
+import { DomainTodolist } from '@/features/todolist/lib/types/types'
 import { TextField } from '@mui/material'
 import { type ChangeEvent, useState } from 'react'
 

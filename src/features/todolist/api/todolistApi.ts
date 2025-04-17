@@ -1,8 +1,8 @@
 import { instance } from '@/common/instance'
 import { Todolist } from './todolistApi.types'
 import { BaseResponce } from '@/common/types'
-import { DomainTodolist } from '../model/todolists-slice'
 import { baseApi } from '@/app/baseApi'
+import { DomainTodolist } from '../lib/types/types'
 
 export const todolistApi = baseApi.injectEndpoints({ //injectEndpoints исп. для динамического добавления эндпоинтов к уже созданному API. Это ключевая функция для реализации code splitting
   endpoints: (builder) => ({ //Определяет эндпоинты API (конечные точки для запросов)

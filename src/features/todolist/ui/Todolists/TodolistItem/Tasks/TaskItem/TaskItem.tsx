@@ -8,11 +8,11 @@ import {
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import { ChangeEvent } from 'react'
 import { getListItemSx } from './TaskItem.styles.ts/TaskItem.styles'
-import { DomainTodolist } from '@/features/todolist/model/todolists-slice'
 import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
 import { DomainTask } from '@/features/todolist/api/tasksApi.types'
 import { TaskStatus } from '@/common/enums/enums'
 import { useDeleteTaskMutation, useUpdateTaskMutation } from '@/features/todolist/api/tasksApi'
+import { DomainTodolist } from '@/features/todolist/lib/types/types'
 
 type Props = {
   todolist: DomainTodolist

@@ -2,11 +2,11 @@ import { instance } from '@/common/instance'
 import { GetTasksResponce, DomainTask, UpdateTaskModel } from './tasksApi.types'
 import { BaseResponce } from '@/common/types'
 import { baseApi } from '@/app/baseApi'
-import { TasksState } from '../model/tasks-slice'
+
 
 export const taskApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getTasks: builder.query<TasksState, string>({
+    getTasks: builder.query<GetTasksResponce, string>({
       query: (todolistId: string) => ({ //Фун., возвращающая конфигурацию для HTTP-запроса
         method: 'GET', //HTTP-метод (GET-запрос)  
         url: `/todo-lists/${todolistId}/tasks`, //Эндпоинт

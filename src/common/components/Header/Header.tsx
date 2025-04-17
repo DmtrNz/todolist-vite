@@ -17,6 +17,7 @@ import { containerSx } from '@/common/styles'
 import { useLogoutMutation } from '@/features/auth/api/authApi'
 import { ResultCode } from '@/common/enums/enums'
 import { AUTH_TOKEN } from '@/common/constans'
+import { taskApi } from '@/features/todolist/api/tasksApi'
 
 export const Header = () => {
   const themeMode = useAppSelector(selectThemeMode)
@@ -25,7 +26,7 @@ export const Header = () => {
 
   const dispatch = useAppDispatch()
 
-  const [logout ] = useLogoutMutation()
+  const [logout] = useLogoutMutation()
 
   const changeThemeHandler = () => {
     dispatch(
@@ -35,18 +36,16 @@ export const Header = () => {
     )
   }
 
-  // const logoutHandler = () => {
-  //   dispatch(logoutTC())
-  // }
 
   const logoutHandler = () => {
     logout().then((res) => {
       if (res.data?.resultCode === ResultCode.Success) {
-        // dispatch(setStatus({ status: 'succeeded' }))
-        // dispatch(clearData()) //не нужно очищать store, т.к. todolists лежат в кэше
         localStorage.removeItem(AUTH_TOKEN)
         dispatch(setIsLoggedIn({ isLoggedIn: false }))
       }
+    }).then(() => { 
+      //dispatch(baseApi.util.resetApiState())
+      dispatch(taskApi.util.invalidateTags(["Tasks"])) 
     })
   }
 
