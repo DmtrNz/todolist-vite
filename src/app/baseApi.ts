@@ -20,4 +20,6 @@ export const baseApi = createApi({
     return result
   },
   endpoints: () => ({}), //Заглушка
+  refetchOnFocus: true,
+  refetchOnReconnect: true,
 })

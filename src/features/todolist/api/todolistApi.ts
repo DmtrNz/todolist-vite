@@ -1,4 +1,3 @@
-import { instance } from '@/common/instance'
 import { Todolist } from './todolistApi.types'
 import { BaseResponce } from '@/common/types'
 import { baseApi } from '@/app/baseApi'
@@ -34,6 +33,21 @@ export const todolistApi = baseApi.injectEndpoints({ //injectEndpoints исп. �
         method: 'DELETE', //HTTP-метод (DELETE-запрос) 
         url: `todo-lists/${todolistId}`, //Эндпоинт
       }),
+      async onQueryStarted(id: string, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          todolistApi.util.updateQueryData('getTodolists', undefined, state => {
+            const index = state.findIndex(todolist => todolist.id === id)
+            if (index !== -1) {
+              state.splice(index, 1)
+            }
+          })
+        )
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
+        }
+      },
       invalidatesTags: ['Todolist'], //После успешного выполнения мутации (delete) инвалидирует (помечает как устаревшие) все данные с тегом 'Todolist', чтобы RTK Query автоматически перезагрузил getTodolists и обновил UI.
     }),
 
@@ -48,26 +62,5 @@ export const todolistApi = baseApi.injectEndpoints({ //injectEndpoints исп. �
   }),
 })
 
-export const _todolistApi = {
-  getTodolists() {
-    return instance.get<Todolist[]>('/todo-lists')
-  },
-  createTodolist(payload: { title: string }) {
-    const { title } = payload
-    return instance.post<BaseResponce<{ item: Todolist }>>('/todo-lists', {
-      title,
-    })
-  },
-  deleteTodolist(payload: { todolistId: string }) {
-    const { todolistId } = payload
-    return instance.delete<BaseResponce>(`/todo-lists/${todolistId}`)
-  },
-  changeTodolistTitle(payload: { todolistId: string; title: string }) {
-    const { todolistId, title } = payload
-    return instance.put<BaseResponce>(`/todo-lists/${todolistId}`, {
-      title,
-    })
-  },
-}
 
 export const { useGetTodolistsQuery, useCreateTodolistMutation, useDeleteTodolistMutation, useChangeTodolistTitleMutation} = todolistApi //Экспорт автоматически сгенерированного React Hook. Правила генерации имён: use + имя эндпоинта в camelCase + Query или Mutation 

@@ -8,13 +8,11 @@ type Props = {
   todolist: DomainTodolist
 }
 
-export const EditableSpan = ({ value, onChange, todolist }: Props) => {
+export const EditableSpan = ({ value, onChange }: Props) => {
   const [title, setTitle] = useState(value)
   const [isEditMode, setIsEditMode] = useState(false)
-  const { entityStatus } = todolist
 
   const turnOnEditMode = () => {
-    if (entityStatus === 'loading') return
     setIsEditMode(true)
   }
 

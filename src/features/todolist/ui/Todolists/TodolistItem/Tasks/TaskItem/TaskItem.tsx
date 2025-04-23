@@ -20,7 +20,7 @@ type Props = {
 }
 
 export const TaskItem = ({ todolist, task }: Props) => {
-  const { id, entityStatus } = todolist
+  const { id } = todolist
 
   const [deleteTask] = useDeleteTaskMutation()
   const [updateTask] = useUpdateTaskMutation()
@@ -43,7 +43,6 @@ export const TaskItem = ({ todolist, task }: Props) => {
   }
 
   const isTaskCompleted = task.status === TaskStatus.Completed
-  const disabled = entityStatus === 'loading'
 
   return (
     <ListItem
@@ -54,7 +53,6 @@ export const TaskItem = ({ todolist, task }: Props) => {
         <IconButton
           onClick={deleteTaskHandler}
           color={'primary'}
-          disabled={disabled}
         >
           <DeleteForeverIcon />
         </IconButton>
@@ -65,7 +63,6 @@ export const TaskItem = ({ todolist, task }: Props) => {
           checked={isTaskCompleted}
           onChange={changeTaskStatusHandler}
           size='small'
-          disabled={disabled}
         />
       </ListItemIcon>
 
