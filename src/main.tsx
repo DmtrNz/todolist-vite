@@ -3,12 +3,12 @@ import './index.css'
 import { App } from './app/App'
 import { Provider } from 'react-redux'
 import { store } from './app/store'
-import { BrowserRouter } from "react-router"
+import { HashRouter } from "react-router"
 
 createRoot(document.getElementById('root')!).render(
-  <BrowserRouter>
+  <HashRouter>
     <Provider store={store}>
       <App />
     </Provider>
-  </BrowserRouter>
+  </HashRouter>
 )
